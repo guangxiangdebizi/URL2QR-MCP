@@ -12,6 +12,7 @@ A powerful MCP (Model Context Protocol) server that converts URLs into QR codes 
 - 📥 **Downloadable Links** - Get HTTP download links for generated QR codes
 - ⚙️ **Customizable Options** - Control error correction level and image size
 - 🚀 **Streamable HTTP** - Modern MCP transport protocol support
+- 🌍 **Remote Service Available** - Use our hosted service at `http://47.79.147.241:3055/mcp`
 - 🔌 **Easy Integration** - Works with Claude Desktop and other MCP clients
 - 🎨 **Clean API** - RESTful endpoints for health checks and file serving
 
@@ -40,7 +41,29 @@ npm run build
 
 ## 🚀 Quick Start
 
-### 1. Start the Server
+### Option 1: Use Remote Service (Recommended for Quick Testing) 🌍
+
+**No installation needed!** We provide a hosted service for immediate use:
+
+Add to your MCP client configuration (e.g., Claude Desktop's `claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "url2qr": {
+      "type": "streamableHttp",
+      "url": "http://47.79.147.241:3055/mcp",
+      "timeout": 600
+    }
+  }
+}
+```
+
+✨ **That's it!** You can now use the QR code generation tool without running your own server.
+
+### Option 2: Run Your Own Local Server
+
+#### 1. Start the Server
 
 ```bash
 # If installed globally
@@ -55,7 +78,7 @@ npm run dev
 
 The server will start on `http://localhost:3000` by default.
 
-### 2. Configure MCP Client
+#### 2. Configure MCP Client
 
 Add to your MCP client configuration (e.g., Claude Desktop's `claude_desktop_config.json`):
 
@@ -171,6 +194,28 @@ The server implements automatic session cleanup:
 - Sessions expire after 30 minutes of inactivity
 - Cleanup runs every 15 minutes
 - Session IDs are managed via `Mcp-Session-Id` headers
+
+## 🌐 Deployment Options
+
+### Remote Service (Production)
+
+We provide a hosted service at:
+- **Endpoint**: `http://47.79.147.241:3055/mcp`
+- **Health Check**: `http://47.79.147.241:3055/health`
+- **Status**: 🟢 Online and ready to use
+
+This is perfect for:
+- Quick testing without setup
+- Production use without infrastructure
+- Teams sharing a single endpoint
+
+### Local Deployment
+
+Run your own instance for:
+- Development and testing
+- Private/isolated environments
+- Custom configurations
+- On-premise requirements
 
 ## 📝 Examples
 
