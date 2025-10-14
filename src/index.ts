@@ -38,6 +38,7 @@ function createMCPServer(): Server {
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 const QR_OUTPUT_DIR = process.env.QR_OUTPUT_DIR || "./qrcodes";
+const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || `http://localhost:${PORT}`).replace(/\/$/, "");
 
 app.use(cors({ 
   origin: "*",

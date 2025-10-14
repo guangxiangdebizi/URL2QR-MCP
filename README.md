@@ -61,6 +61,8 @@ Add to your MCP client configuration (e.g., Claude Desktop's `claude_desktop_con
 
 ✨ **That's it!** You can now use the QR code generation tool without running your own server.
 
+**Tip:** When self-hosting on a public server, remember to set the `PUBLIC_BASE_URL` environment variable so that generated download links use your public domain instead of `localhost`.
+
 ### Option 2: Run Your Own Local Server
 
 #### 1. Start the Server
@@ -165,12 +167,14 @@ Create a `.env` file in the project root:
 ```env
 PORT=3000
 QR_OUTPUT_DIR=./qrcodes
+PUBLIC_BASE_URL=http://localhost:3000
 ```
 
 **Environment Variables:**
 
 - `PORT` - Server port (default: 3000)
 - `QR_OUTPUT_DIR` - Directory for storing QR code images (default: ./qrcodes)
+- `PUBLIC_BASE_URL` - External base URL used in generated download links (default: http://localhost:3000)
 
 ## 🏗️ Project Structure
 
@@ -216,6 +220,8 @@ Run your own instance for:
 - Private/isolated environments
 - Custom configurations
 - On-premise requirements
+
+When running behind a reverse proxy or on a public server, set `PUBLIC_BASE_URL` to your public domain (e.g., `https://qr.example.com`) so generated QR code download links work correctly.
 
 ## 📝 Examples
 

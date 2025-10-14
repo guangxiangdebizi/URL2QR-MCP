@@ -67,7 +67,10 @@ export const url2qr = {
 
       // 4️⃣ Build download URL
       const port = process.env.PORT || 3000;
-      const downloadUrl = `http://localhost:${port}/qrcodes/${filename}`;
+      const publicBaseUrl = process.env.PUBLIC_BASE_URL?.replace(/\/$/, "");
+      const fallbackBaseUrl = `http://localhost:${port}`;
+      const downloadBaseUrl = publicBaseUrl ?? fallbackBaseUrl;
+      const downloadUrl = `${downloadBaseUrl}/qrcodes/${filename}`;
 
       // 5️⃣ Format return
       return {
