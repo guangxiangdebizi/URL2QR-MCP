@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "MCP server that converts URLs to QR codes with downloadable links",
   "type": "module",
+  "module": "src/index.ts",
   "main": "build/index.js",
   "bin": {
     "url2qr-mcp": "build/index.js"
@@ -10,7 +11,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "dev": "tsc && node build/index.js"
+    "dev": "tsc && node build/index.js",
+    "smithery:build": "npx smithery build",
+    "smithery:dev": "npx smithery dev"
   },
   "keywords": [
     "mcp",
@@ -42,6 +45,7 @@
     "@types/express": "^4.17.21",
     "@types/cors": "^2.8.17",
     "@types/qrcode": "^1.5.5",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "@smithery/cli": "^1.4.6"
   }
 }

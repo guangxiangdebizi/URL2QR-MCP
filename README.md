@@ -223,6 +223,25 @@ Run your own instance for:
 
 When running behind a reverse proxy or on a public server, set `PUBLIC_BASE_URL` to your public domain (e.g., `https://qr.example.com`) so generated QR code download links work correctly.
 
+### Deploy on Smithery (Managed Hosting)
+
+You can deploy URL2QR MCP server to [Smithery](https://smithery.ai) for managed hosting:
+
+1. Ensure the repository contains `Dockerfile` and `smithery.yaml` (already included)
+2. Install the Smithery CLI locally:
+   ```bash
+   npm install
+   npx smithery build
+   ```
+3. Push your code to GitHub and connect the repo in Smithery dashboard
+4. Configure environment variables in Smithery:
+   - `PORT=3000`
+   - `QR_OUTPUT_DIR=/app/qrcodes`
+   - `PUBLIC_BASE_URL` = your public HTTPS domain
+5. Trigger a deployment from Smithery UI
+
+Refer to Smithery docs for more details: [TypeScript Deployments](https://smithery.ai/docs/build/deployments/typescript), [Project Configuration](https://smithery.ai/docs/build/project-config)
+
 ## 📝 Examples
 
 ### Basic Usage
