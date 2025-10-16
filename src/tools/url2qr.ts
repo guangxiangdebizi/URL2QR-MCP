@@ -26,7 +26,10 @@ export const url2qr = {
     required: ["url"]
   },
 
-  async run(args: { url: string; errorCorrectionLevel?: "L" | "M" | "Q" | "H"; width?: number }) {
+  async run(
+    args: { url: string; errorCorrectionLevel?: "L" | "M" | "Q" | "H"; width?: number },
+    context?: { hostBaseUrl?: string }
+  ) {
     try {
       // 1️⃣ Parameter validation
       if (!args.url) {
@@ -65,11 +68,22 @@ export const url2qr = {
         }
       });
 
-      // 4️⃣ Build download URL
+      // 4️⃣ Build download URL - Auto-detect from request or use environment variable
+      // Priority: 1) Request host (dynamic) 2) Environment variable 3) Localhost fallback
       const port = process.env.PORT || 3000;
-      const publicBaseUrl = process.env.PUBLIC_BASE_URL?.replace(/\/$/, "");
-      const fallbackBaseUrl = `http://localhost:${port}`;
-      const downloadBaseUrl = publicBaseUrl ?? fallbackBaseUrl;
+      let downloadBaseUrl: string;
+      
+      if (context?.hostBaseUrl) {
+        // Use dynamically detected host from request
+        downloadBaseUrl = context.hostBaseUrl.replace(/\/$/, "");
+      } else if (process.env.PUBLIC_BASE_URL) {
+        // Use configured public URL
+        downloadBaseUrl = process.env.PUBLIC_BASE_URL.replace(/\/$/, "");
+      } else {
+        // Fallback to localhost
+        downloadBaseUrl = `http://localhost:${port}`;
+      }
+      
       const downloadUrl = `${downloadBaseUrl}/qrcodes/${filename}`;
 
       // 5️⃣ Format return

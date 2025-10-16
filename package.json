@@ -1,6 +1,6 @@
 {
   "name": "@xingyuchen/url2qr-mcp",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "MCP server that converts URLs to QR codes with downloadable links",
   "type": "module",
   "module": "src/index.ts",

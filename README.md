@@ -167,6 +167,7 @@ Create a `.env` file in the project root:
 ```env
 PORT=3000
 QR_OUTPUT_DIR=./qrcodes
+# PUBLIC_BASE_URL is optional - auto-detected from request headers by default
 PUBLIC_BASE_URL=http://localhost:3000
 ```
 
@@ -174,7 +175,17 @@ PUBLIC_BASE_URL=http://localhost:3000
 
 - `PORT` - Server port (default: 3000)
 - `QR_OUTPUT_DIR` - Directory for storing QR code images (default: ./qrcodes)
-- `PUBLIC_BASE_URL` - External base URL used in generated download links (default: http://localhost:3000)
+- `PUBLIC_BASE_URL` - **Optional**. External base URL for download links. If not set, the server automatically detects the URL from incoming request headers (supports reverse proxies with `X-Forwarded-Host` and `X-Forwarded-Proto`)
+
+### 🎯 Auto-Detection Feature
+
+The server **automatically detects its public URL** from incoming HTTP requests, so you don't need to configure `PUBLIC_BASE_URL` in most cases:
+
+- ✅ **Smithery/Cloud Deployments**: Automatically uses the correct public domain
+- ✅ **Behind Reverse Proxy**: Reads `X-Forwarded-Host` and `X-Forwarded-Proto` headers
+- ✅ **Local Development**: Falls back to `localhost:PORT`
+
+Only set `PUBLIC_BASE_URL` if you need to override the auto-detected value.
 
 ## 🏗️ Project Structure
 
@@ -221,7 +232,7 @@ Run your own instance for:
 - Custom configurations
 - On-premise requirements
 
-When running behind a reverse proxy or on a public server, set `PUBLIC_BASE_URL` to your public domain (e.g., `https://qr.example.com`) so generated QR code download links work correctly.
+The server automatically detects its public URL from request headers, so it works seamlessly behind reverse proxies and in cloud environments without manual configuration.
 
 ### Deploy on Smithery (Managed Hosting)
 
@@ -234,11 +245,13 @@ You can deploy URL2QR MCP server to [Smithery](https://smithery.ai) for managed 
    npx smithery build
    ```
 3. Push your code to GitHub and connect the repo in Smithery dashboard
-4. Configure environment variables in Smithery:
+4. Configure environment variables in Smithery (optional):
    - `PORT=3000`
    - `QR_OUTPUT_DIR=/app/qrcodes`
-   - `PUBLIC_BASE_URL` = your public HTTPS domain
+   - `PUBLIC_BASE_URL` - **Not required** (auto-detected from requests)
 5. Trigger a deployment from Smithery UI
+
+✨ **No manual URL configuration needed!** The server automatically detects Smithery's public URL from request headers.
 
 Refer to Smithery docs for more details: [TypeScript Deployments](https://smithery.ai/docs/build/deployments/typescript), [Project Configuration](https://smithery.ai/docs/build/project-config)
 

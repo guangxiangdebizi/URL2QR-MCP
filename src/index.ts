@@ -131,10 +131,19 @@ app.all("/mcp", async (req: Request, res: Response) => {
     }
     if (body.method === "tools/call") {
       const { name, arguments: args } = body.params;
+      
+      // Auto-detect host from request headers (supports proxies and different deployments)
+      const protocol = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
+      const host = req.headers['x-forwarded-host'] || req.headers['host'] || `localhost:${PORT}`;
+      const hostBaseUrl = `${protocol}://${host}`;
+      
       let result: any;
       switch (name) {
-        case "url_to_qrcode": result = await url2qr.run(args); break;
-        default: throw new Error(`Unknown tool: ${name}`);
+        case "url_to_qrcode": 
+          result = await url2qr.run(args, { hostBaseUrl }); 
+          break;
+        default: 
+          throw new Error(`Unknown tool: ${name}`);
       }
       return res.json({ jsonrpc: "2.0", result, id: body.id });
     }
