@@ -18,6 +18,14 @@ A powerful MCP (Model Context Protocol) server that converts URLs into QR codes 
 
 ## 📦 Installation
 
+### Installing via Smithery
+
+To install URL2QR automatically via [Smithery](https://smithery.ai/server/@guangxiangdebizi/url2qr-mcp):
+
+```bash
+npx -y @smithery/cli install @guangxiangdebizi/url2qr-mcp
+```
+
 ### Via npm (Global)
 
 ```bash
@@ -309,4 +317,3 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ---
 
 ⭐ If you find this project useful, please consider giving it a star on GitHub!
-
