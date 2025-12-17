@@ -6,6 +6,9 @@
 
 A powerful MCP (Model Context Protocol) server that converts URLs into QR codes with downloadable links. Built with Express and TypeScript, providing seamless integration with AI assistants like Claude.
 
+[![smithery badge](https://smithery.ai/badge/@guangxiangdebizi/url2qr-mcp)](https://smithery.ai/server/@guangxiangdebizi/url2qr-mcp)
+
+
 ## ✨ Features
 
 - 🔗 **URL to QR Code Conversion** - Transform any URL into a scannable QR code
