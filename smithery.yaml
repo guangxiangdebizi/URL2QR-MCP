@@ -4,5 +4,8 @@ build:
   dockerBuildPath: "."
 startCommand:
   type: "http"
-  port: 3000
-
+  configSchema:
+    type: "object"
+    properties: {}
+    required: []
+  exampleConfig: {}
