@@ -117,7 +117,12 @@ app.all("/mcp", async (req: Request, res: Response) => {
         jsonrpc: "2.0", 
         result: { 
           protocolVersion: "2024-11-05", 
-          capabilities: { tools: {} }, 
+          capabilities: { 
+            tools: {},
+            // Explicitly declare we don't support resources and prompts
+            resources: undefined,
+            prompts: undefined
+          }, 
           serverInfo: { name: "URL2QR-MCP", version: "1.0.0" } 
         }, 
         id: body.id 
@@ -129,6 +134,15 @@ app.all("/mcp", async (req: Request, res: Response) => {
       ];
       return res.json({ jsonrpc: "2.0", result: { tools }, id: body.id });
     }
+    
+    // Return empty arrays for resources and prompts (not supported but respond gracefully)
+    if (body.method === "resources/list") {
+      return res.json({ jsonrpc: "2.0", result: { resources: [] }, id: body.id });
+    }
+    if (body.method === "prompts/list") {
+      return res.json({ jsonrpc: "2.0", result: { prompts: [] }, id: body.id });
+    }
+    
     if (body.method === "tools/call") {
       const { name, arguments: args } = body.params;
       
